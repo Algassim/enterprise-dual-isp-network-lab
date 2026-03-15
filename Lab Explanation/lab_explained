@@ -1,0 +1,115 @@
+# Enterprise Multi-Layer Network Architecture
+
+## Project Objective (Personal Statement)
+
+In this project, I designed and implemented a complete enterprise-grade network 
+from the Access layer to the Internet edge. My objective was to simulate a real-world 
+corporate infrastructure including redundancy, dynamic routing, firewall high 
+availability, dual ISP connectivity, and SD-WAN.
+The goal was not only to make devices communicate, but to deeply understand 
+how EIGRP, OSPF, and BGP interact together, how route redistribution works, 
+and how high availability ensures business continuity.
+
+This lab represents a real Enterprise Edge architecture that could be deployed 
+in a medium or large organization.
+
+Complete IP Addressing Plan
+Users VLAN 10:        10.10.10.0/24
+Users VLAN 20:        10.10.20.0/24
+Users VLAN 30:        10.10.30.0/24
+Management VLAN 50:   10.10.50.0/24
+Server VLAN 60:       25.25.25.0/29
+
+Core-Distribution Links:
+  2.2.2.0/30
+  4.4.4.0/29
+  5.5.5.0/29
+
+Core-ASA Links:
+  12.12.12.0/29
+  16.16.16.0/29
+
+ASA Failover:
+  13.13.13.0/29
+
+DMZ Network:
+  172.16.10.0/26
+
+WAN Links:
+  100.64.1.0/30 (FGT ↔ R1)
+  100.64.2.0/30 (FGT ↔ R2)
+  100.64.3.0/30 (R1 ↔ R2)
+
+ISP Networks:
+  198.51.100.0/30 (Verizon)
+  203.0.113.0/30 (AT)
+
+## Routing Architecture Overview
+LAN Routing:
+
+I implemented EIGRP AS 100 between Distribution and Core switches
+to provide fast convergence and internal scalability.
+
+Core to Firewall:
+I used OSPF Area 0 between Core and ASA. The Core redistributes 
+EIGRP into OSPF and the ASA redistributes connected routes.
+
+Internet Edge:
+FortiGate runs BGP AS 65010 and peers with Transit routers (AS 65020).
+Transit routers peer with:
+  - ISP Verizon (AS 64512)
+  - ISP AT (AS 64513)
+This provides full dual-ISP redundancy.
+
+## High Availability Design
+
+ASA High Availability:
+Configured in Active/Standby mode.
+Failover interface: Gig0/1
+Failover network: 13.13.13.0/29
+
+FortiGate High Availability:
+Active/Passive cluster.
+Heartbeat interface: port3
+Session pickup enabled.
+Configuration fully synchronized.
+This ensures firewall redundancy at both internal and perimeter layers.
+
+## SD-WAN & NAT Implementation
+SD-WAN is enabled on FortiGate with two WAN members:
+  - port5 (Primary - WAN1)
+  - port6 (Secondary - WAN2)
+Priority mode ensures WAN1 is preferred unless SLA fails.
+
+NAT Policy:
+LAN traffic → virtual-wan-link
+NAT enabled for secure Internet access.
+Configuration Summary by Layer
+
+Access Layer:
+  - VLAN segmentation
+  - DHCP Snooping
+  - STP Rapid-PVST
+
+Distribution Layer:
+  - HSRP for gateway redundancy
+  - Layer 3 EtherChannel
+  - EIGRP AS 100
+
+Core Layer:
+  - EIGRP ↔ OSPF redistribution
+  - Redundant links
+
+ASA:
+  - OSPF enabled
+  - Failover configured
+  - DMZ integration
+
+FortiGate:
+  - OSPF + BGP
+  - SD-WAN
+  - Dual ISP NAT
+
+Transit Routers:
+  - iBGP between R1/R2
+  - eBGP to ISPs
