@@ -27,10 +27,6 @@ The design includes:
 - SD-WAN
 - EVE-NG
 
-## Network Topology
-
-![Topology](topology.png)
-
 ## Key Features
 
 - Redundant ISP connectivity
