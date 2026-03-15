@@ -1,0 +1,400 @@
+
+
+FGT2 login: admin
+Password:
+Welcome!
+
+FGT2 # sh system interface port1
+config system interface
+    edit "port1"
+        set vdom "root"
+        set ip 172.16.10.20 255.255.255.192
+        set allowaccess ping https ssh snmp fgfm ftm
+        set type physical
+        set snmp-index 1
+    next
+end
+
+FGT2 # sh system interface port2
+config system interface
+    edit "port2"
+        set vdom "root"
+        set ip 192.168.18.55 255.255.255.0
+        set allowaccess ping https ssh http
+        set type physical
+        set snmp-index 2
+    next
+end
+
+FGT2 # sh system interface port3
+config system interface
+    edit "port3"
+        set vdom "root"
+        set type physical
+        set snmp-index 3
+    next
+end
+
+FGT2 # sh system interface port4
+config system interface
+    edit "port4"
+        set vdom "root"
+        set type physical
+        set snmp-index 4
+    next
+end
+
+FGT2 # sh system interface port5
+config system interface
+    edit "port5"
+        set vdom "root"
+        set ip 100.64.1.2 255.255.255.252
+        set allowaccess ping
+        set type physical
+        set alias "WAN1-to-R1"
+        set snmp-index 5
+    next
+end
+
+FGT2 # sh system interface port6
+config system interface
+    edit "port6"
+        set vdom "root"
+        set ip 100.64.2.2 255.255.255.252
+        set allowaccess ping
+        set type physical
+        set alias "WAN2_to_R2"
+        set snmp-index 6
+    next
+end
+
+FGT2 # sh router static
+config router static
+    edit 18
+        set gateway 192.168.18.2
+        set distance 200
+        set device "port2"
+    next
+end
+
+FGT2 # sh router ospf
+config router ospf
+    set default-information-originate enable
+    set router-id 20.20.20.20
+    config area
+        edit 0.0.0.0
+        next
+    end
+    config ospf-interface
+        edit "OSPF_TO_ASA"
+            set interface "port1"
+            set prefix-length 26
+        next
+    end
+    config network
+        edit 1
+            set prefix 172.16.10.0 255.255.255.192
+        next
+    end
+    config redistribute "connected"
+        set status enable
+    end
+    config redistribute "static"
+    end
+    config redistribute "rip"
+    end
+    config redistribute "bgp"
+    end
+    config redistribute "isis"
+    end
+end
+
+FGT2 # sh router bgp
+config router bgp
+    set as 65010
+    set router-id 172.16.10.20
+    config neighbor
+        edit "100.64.1.1"
+            set description "Peering_to_R1"
+            set remote-as 65020
+        next
+        edit "100.64.2.1"
+            set ebgp-enforce-multihop enable
+            set description "Peering_to_R2"
+            set remote-as 65020
+            set update-source "port5"
+        next
+    end
+    config network
+        edit 1
+            set prefix 10.0.0.0 255.0.0.0
+        next
+        edit 2
+            set prefix 25.25.25.0 255.255.255.248
+        next
+    end
+    config network6
+        edit 1
+            set prefix6 ::/128
+        next
+    end
+    config redistribute "connected"
+        set status enable
+    end
+    config redistribute "rip"
+    end
+    config redistribute "ospf"
+        set status enable
+    end
+    config redistribute "static"
+        set status enable
+    end
+    config redistribute "isis"
+    end
+    config redistribute6 "connected"
+    end
+    config redistribute6 "rip"
+    end
+    config redistribute6 "ospf"
+    end
+    config redistribute6 "static"
+    end
+    config redistribute6 "isis"
+    end
+end
+
+FGT2 #  sh router eigrp
+
+command parse error before 'eigrp'
+Command fail. Return code -61
+
+FGT2 # Timeout
+
+
+FGT2 login: admin
+Password:
+Login incorrect
+
+
+FGT2 login: admin
+Password:
+Login incorrect
+
+
+FGT2 login: admin
+Password:
+Welcome!
+
+FGT2 # sh firewall policy
+config firewall policy
+    edit 1
+        set name "LAN-DMZ"
+        set uuid 692ecad4-0aee-51f1-1d18-e080bd626b4a
+        set srcintf "port1"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL_ICMP" "HTTPS" "SSH" "PING"
+    next
+    edit 2
+        set name "LAN-TO-INTERNET"
+        set uuid 3ae89c8c-0b10-51f1-c974-a28792a3952e
+        set srcintf "port1"
+        set dstintf "virtual-wan-link"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+    next
+end
+
+FGT2 # Timeout
+
+
+FGT2 login: admin
+Password:
+Welcome!
+
+FGT2 # sh sys sdwan
+config system sdwan
+    set status enable
+    config zone
+        edit "virtual-wan-link"
+        next
+    end
+    config members
+        edit 1
+            set interface "port5"
+            set gateway 100.64.1.1
+        next
+        edit 2
+            set interface "port6"
+            set gateway 100.64.2.1
+        next
+    end
+    config health-check
+        edit "Default_DNS"
+            set system-dns enable
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 5
+                next
+            end
+        next
+        edit "Default_Office_365"
+            set server "www.office.com"
+            set protocol http
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 5
+                next
+            end
+        next
+        edit "Default_Gmail"
+            set server "gmail.com"
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 2
+                next
+            end
+        next
+        edit "Default_AWS"
+            set server "aws.amazon.com"
+            set protocol http
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 5
+                next
+            end
+        next
+        edit "Default_Google Search"
+            set server "www.google.com"
+            set protocol http
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 5
+                next
+            end
+        next
+        edit "Default_FortiGuard"
+            set server "fortiguard.com"
+            set protocol http
+            set interval 1000
+            set probe-timeout 1000
+            set recoverytime 10
+            config sla
+                edit 1
+                    set latency-threshold 250
+                    set jitter-threshold 50
+                    set packetloss-threshold 5
+                next
+            end
+        next
+    end
+    config service
+        edit 1
+            set name "DEFAULT"
+            set mode priority
+            set dst "all"
+            set src "all"
+            set health-check "Default_DNS"
+            set priority-members 1
+        next
+    end
+end
+
+FGT2 # get system ha status
+HA Health Status: OK
+Model: FortiGate-VM64-KVM
+Mode: HA A-P
+Group: 0
+Debug: 0
+Cluster Uptime: 0 days 1:56:53
+Cluster state change time: 2026-02-18 07:33:16
+Primary selected using:
+    <2026/02/18 07:33:16> vcluster-1: FGVMEVCIWKCYHH13 is selected as the primary because its override priority is larger than peer member FGVMEVRF_KLEDF13.
+ses_pickup: enable, ses_pickup_delay=disable
+override: disable
+Configuration Status:
+    FGVMEVRF_KLEDF13(updated 3 seconds ago): in-sync
+    FGVMEVCIWKCYHH13(updated 3 seconds ago): in-sync
+System Usage stats:
+    FGVMEVRF_KLEDF13(updated 3 seconds ago):
+        sessions=0, average-cpu-user/nice/system/idle=0%/0%/1%/93%, memory=78%
+    FGVMEVCIWKCYHH13(updated 3 seconds ago):
+        sessions=11, average-cpu-user/nice/system/idle=0%/0%/0%/97%, memory=79%
+HBDEV stats:
+    FGVMEVRF_KLEDF13(updated 3 seconds ago):
+        port3: physical/10000full, up, rx-bytes/packets/dropped/errors=21905703/45450/0/0, tx=16333115/43667/0/0
+    FGVMEVCIWKCYHH13(updated 3 seconds ago):
+        port3: physical/10000full, up, rx-bytes/packets/dropped/errors=16333115/43667/0/0, tx=21904529/45447/0/0
+MONDEV stats:
+    FGVMEVRF_KLEDF13(updated 3 seconds ago):
+    FGVMEVCIWKCYHH13(updated 3 seconds ago):
+PINGSVR stats:
+    FGVMEVRF_KLEDF13(updated 3 seconds ago):
+    FGVMEVCIWKCYHH13(updated 3 seconds ago):
+Secondary   : FGT2            , FGVMEVRF_KLEDF13, HA cluster index = 0
+Primary     : FGT1            , FGVMEVCIWKCYHH13, HA cluster index = 1
+number of vcluster: 1
+vcluster 1: standby 169.254.0.2
+Secondary: FGVMEVRF_KLEDF13, HA operating index = 1
+Primary: FGVMEVCIWKCYHH13, HA operating index = 0
+
+FGT2 # sh firewall policy
+config firewall policy
+    edit 1
+        set name "LAN-DMZ"
+        set uuid 692ecad4-0aee-51f1-1d18-e080bd626b4a
+        set srcintf "port1"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL_ICMP" "HTTPS" "SSH" "PING"
+    next
+    edit 2
+        set name "LAN-TO-INTERNET"
+        set uuid 3ae89c8c-0b10-51f1-c974-a28792a3952e
+        set srcintf "port1"
+        set dstintf "virtual-wan-link"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set nat enable
+    next
+end
+
+FGT2 #
