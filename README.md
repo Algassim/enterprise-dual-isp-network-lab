@@ -47,23 +47,23 @@ The following commands were used to validate connectivity across the enterprise 
 
 Verify that end devices are connected to the correct VLAN and switch ports.
 
-show vlan brief  
-show interfaces status  
-show mac address-table  
-show mac address-table dynamic  
-show spanning-tree  
+  • show vlan brief  
+  • show interfaces status  
+  • show mac address-table  
+  • show mac address-table dynamic  
+  • show spanning-tree  
 
 Check which port a specific device is connected to:
 
-show mac address-table address <MAC_ADDRESS>
+  • show mac address-table address <MAC_ADDRESS>
 
 Verify trunk links to distribution/core switches:
 
-show interfaces trunk  
+• show interfaces trunk  
 
 Test connectivity to the default gateway:
 
-ping <gateway-ip>
+• ping <gateway-ip>
 
 ---
 
@@ -71,55 +71,51 @@ ping <gateway-ip>
 
 Verify internal routing across the enterprise network.
 
-Check EIGRP neighbors:
-
-show ip eigrp neighbors  
+• Check EIGRP neighbors:
+  
+• show ip eigrp neighbors  
 
 Verify EIGRP topology table:
 
-show ip eigrp topology  
+• show ip eigrp topology  
 
 Verify routing table:
 
-show ip route  
+• show ip route  
 
 Check only EIGRP learned routes:
 
-show ip route eigrp  
+• show ip route eigrp  
 
 Test connectivity between internal networks:
 
-ping <remote-lan-network>
+• ping <remote-lan-network>
 
----
+
 
 # 3. Cisco ASA Firewall Verification
 
 Verify ASA interface status:
 
-show interface ip brief  
+• show interface ip brief  
 
 Verify routing table:
 
-show route  
+• show route  
 
 Check NAT configuration:
 
-show nat  
-show xlate  
+• show nat  
+• show xlate  
 
 Verify access control lists:
 
-show access-list  
+• show access-list  
 
 Verify VPN security associations if configured:
 
-show crypto isakmp sa  
-show crypto ipsec sa  
-
-Simulate traffic through the firewall:
-
-packet-tracer input inside icmp <source-ip> 8 0 <destination-ip>
+• show crypto isakmp sa  
+• show crypto ipsec sa  
 
 ---
 
@@ -127,23 +123,23 @@ packet-tracer input inside icmp <source-ip> 8 0 <destination-ip>
 
 Verify interfaces:
 
-get system interface  
+• get system interface  
 
 Verify routing table:
 
-get router info routing-table all  
+• get router info routing-table all  
 
 Verify BGP neighbors:
 
-get router info bgp summary  
+• get router info bgp summary  
 
 Verify SD-WAN status:
 
-diagnose sys sdwan health-check  
+• diagnose sys sdwan health-check  
 
 Verify firewall policies:
 
-show firewall policy  
+• show firewall policy  
 
 ---
 
@@ -151,15 +147,15 @@ show firewall policy
 
 Verify BGP neighbors:
 
-show ip bgp summary  
+• show ip bgp summary  
 
 Verify BGP routes:
 
-show ip bgp  
+• show ip bgp  
 
 Verify routing table:
 
-show ip route  
+• show ip route  
 
 ---
 
@@ -167,13 +163,13 @@ show ip route
 
 Validate connectivity from internal networks to the ISPs.
 
-ping 1.1.1.1  
-ping 2.2.2.2  
+• ping 1.1.1.1  
+• ping 2.2.2.2  
 
 Verify the path taken to reach the ISP networks:
 
-traceroute 1.1.1.1  
-traceroute 2.2.2.2  
+• traceroute 1.1.1.1  
+• traceroute 2.2.2.2  
 
 ---
 
@@ -189,10 +185,10 @@ Example procedure:
 
 Verification commands:
 
-show ip bgp summary  
-show ip route  
-ping 1.1.1.1  
-ping 2.2.2.2  
+• show ip bgp summary  
+• show ip route  
+• ping 1.1.1.1  
+• ping 2.2.2.2  
 
 ---
 
