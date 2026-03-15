@@ -1,0 +1,416 @@
+Booting 'bootflash:/asa9181-smp-k8.bin'
+
+rootnoverify (hd0,0)
+kernel (hd0,0)/
+Searching (hd0,0)/ for images to boot.
+
+Loading (hd0,0)/asa9181-smp-k8.bin...   [NetBSD-a.out, loadaddr=0x100000, text=
+0xb000, C, data=0x8b83000, bss=0x0, symtab=0x24, strtab=0x1a, entry=0x100020]
+boot
+ Booting...
+Platform ASAv
+IO memory blocks requested from bigphys 32bit: 196608
+INFO: The system integrator has chosen not to place the requested string in the SMBIOS
+DEBUG: Could not find string for SMBIOS type *** String ***INFO: SMBIOS indicates Nested KVM Environment
+early console in extract_kernel
+input_data: 0x00000000021c63b1
+input_len: 0x00000000005622dc
+output: 0x0000000001000000
+output_len: 0x00000000017006a0
+kernel_total_size: 0x00000000012e7000
+trampoline_32bit: 0x000000000009d000
+booted via startup_32()
+Physical KASLR using RDRAND RDTSC...
+Virtual KASLR using RDRAND RDTSC...
+
+Decompressing Linux... Parsing ELF... Performing relocations... done.
+Booting the kernel.
+Memory KASLR using RDRAND RDTSC...
+INIT: version 2.88 booting
+Starting udev
+Configuring network interfaces... done.
+Starting random number generator daemon.
+warning: Device /dev/vda has no label.
+fsck.fat 4.1 (2017-01-24)
+0x25: Dirty bit is set. Fs was not properly unmounted and some data may be corrupt.
+ Automatically removing dirty bit.
+Starting check/repair pass.
+Starting verification pass.
+Performing changes.
+/dev/vda1: 12 files, 32311/65246 clusters
+dosfsck(/dev/vda1) returned 1
+Mounting /dev/vda1
+fsck.fat 4.1 (2017-01-24)
+0x41: Dirty bit is set. Fs was not properly unmounted and some data may be corrupt.
+ Automatically removing dirty bit.
+Starting check/repair pass.
+Starting verification pass.
+Performing changes.
+/dev/vda2: 60 files, 5477/2092548 clusters
+dosfsck(/dev/vda2) returned 1
+Mounting /dev/vda2
+no cdrom devices found
+Info: Encrypted disk file system mounted successfully
+
+CAT9k CFG directory mounting
+mount: /mnt/cat9k-cfg: special device shared_mount does not exist.
+shared_mount Failure
+Removing cat9k_cfg
+info: Running in kvm virtual environment.
+Lina to use serial port /dev/ttyS0 for console IO
+Configuring packages on first boot....
+ (This may take several minutes. Please do not power off the machine.)
+Running postinst /etc/rpm-postinsts/100-sysvinit-inittab...
+Running postinst /etc/rpm-postinsts/101-dpdk...
+update-rc.d: /etc/init.d/run-postinsts exists during rc.d purge (continuing)
+ Removing any system startup links for run-postinsts ...
+  /etc/rcS.d/S99run-postinsts
+
+
+Loading...
+The digital signature of the running image verified successfully
+lina_init_env: memif is not enabled.
+System Cores 1 Nodes 1 Max Cores 32
+
+total_reserved_mem = 0
+
+total_heapcache_mem = 0
+total mem 2064973824 system 2098528256 kernel 12596674 image 0
+new 1247070782 old 2064973824 reserve 0 priv new 1259667456 priv old 1259667456
+Processor memory:   2147483648
+M_MMAP_THRESHOLD 65536, M_MMAP_MAX 32768
+POST started...
+POST finished, result is 0 (hint: 1 means it failed)
+
+Cisco Adaptive Security Appliance Software Version 9.18(1)
+
+Compiled on Fri 27-May-22 15:44 GMT by builders
+
+Total NICs found: 11
+en_vtun rev00 Backplane Tap Interface     @ index 10 MAC: 0000.0100.0001
+Counter ID 'TLS13_DOWNSTREAM_CLIENT_CERTIFICATE_VERIFY' is too long must be 40 characters or less
+WARNING: Attribute already exists in the dictionary.
+Use software crypto.
+
+Cisco Adaptive Security Appliance Software Version 9.18(1)
+
+  ****************************** Warning *******************************
+  This product contains cryptographic features and is
+  subject to United States and local country laws
+  governing, import, export, transfer, and use.
+  Delivery of Cisco cryptographic products does not
+  imply third-party authority to import, export,
+  distribute, or use encryption. Importers, exporters,
+  distributors and users are responsible for compliance
+  with U.S. and local country laws. By using this
+  product you agree to comply with applicable laws and
+  regulations. If you are unable to comply with U.S.
+  and local laws, return the enclosed items immediately.
+
+  A summary of U.S. laws governing Cisco cryptographic
+  products may be found at:
+  http://www.cisco.com/wwl/export/crypto/tool/stqrg.html
+
+  If you require further assistance please contact us by
+  sending email to export@cisco.com.
+  ******************************* Warning *******************************
+Cisco Adaptive Security Appliance Software, version 9.18
+Copyright (c) 1996-2022 by Cisco Systems, Inc.
+For licenses and notices for open source software used in this product, please visit
+http://www.cisco.com/go/asa-opensource
+
+                Restricted Rights Legend
+Use, duplication, or disclosure by the Government is
+subject to restrictions as set forth in subparagraph
+(c) of the Commercial Computer Software - Restricted
+Rights clause at FAR sec. 52.227-19 and subparagraph
+(c) (1) (ii) of the Rights in Technical Data and Computer
+Software clause at DFARS sec. 252.227-7013.
+
+                Cisco Systems, Inc.
+                170 West Tasman Drive
+                San Jose, California 95134-1706
+
+.WARNING: OSPF/RIP will not be enabled on failover/cluster interface.
+*** Output from config line 115, " network 13.13.13.0 255...."
+.....
+Cryptochecksum (changed): 415c63e1 07934cc2 f25f54cb 9fa8a56c
+INFO: File /mnt/disk0/.private/dynamic-config.json not opened; errno 2
+INFO: Network Service reload not performed.
+
+INFO: Power-On Self-Test in process.
+.....................................
+INFO: Power-On Self-Test complete.
+
+INFO: Starting SW-DRBG health test...
+INFO: SW-DRBG health test passed.
+User enable_1 logged in to ASA1
+Logins over the last 1 days: 1.
+Failed logins since the last login: 0.
+Type help or '?' for a list of available commands.
+ASA1> ..
+
+        Detected an Active mate
+Configuration on Active and Standby is matching.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+
+ASA1> en
+Password:
+Invalid password
+Password: *********
+ASA1# sh run
+ASA1# sh running-config
+: Saved
+
+:
+: Serial Number: 9A2KB22PKCP
+: Hardware:   ASAv, 2048 MB RAM, CPU Clarkdale 2600 MHz
+:
+ASA Version 9.18(1)
+!
+hostname ASA1
+enable password ***** pbkdf2
+service-module 0 keepalive-timeout 4
+service-module 0 keepalive-counter 6
+names
+no mac-address auto
+
+!
+interface GigabitEthernet0/0
+ nameif inside-diagonal
+ security-level 100
+ ip address 16.16.16.1 255.255.255.248 standby 16.16.16.3
+!
+interface GigabitEthernet0/1
+ description LAN/STATE Failover Interface
+!
+interface GigabitEthernet0/2
+ description Link to DMZ_SW Cluster
+ nameif outside
+ security-level 0
+ ip address 172.16.10.1 255.255.255.192 standby 172.16.10.2
+!
+interface GigabitEthernet0/3
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/4
+ nameif inside
+ security-level 100
+ ip address 12.12.12.1 255.255.255.248 standby 12.12.12.3
+!
+interface GigabitEthernet0/5
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/6
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/7
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/8
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface Management0/0
+ no management-only
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+ftp mode passive
+same-security-traffic permit inter-interface
+same-security-traffic permit intra-interface
+no object-group-search access-control
+object network INTERNAL_NET
+ subnet 10.0.0.0 255.0.0.0
+object network DMZ_NET
+ subnet 172.16.10.0 255.255.255.192
+access-group OSPF_ALLOW in interface inside-diagonal
+access-group OSPF_ALLOW in interface inside
+access-list OSPF_ALLOW extended permit ospf any any
+access-list OSPF_ALLOW extended permit icmp 12.12.12.0 255.255.255.248 host 172.16.10.1
+access-list OSPF_ALLOW extended permit icmp 12.12.12.0 255.255.255.248 172.16.10.0 255.255.255.192
+access-list OSPF_ALLOW extended permit ip any any
+access-list OSPF_ALLOW extended permit icmp 10.10.0.0 255.255.0.0 host 172.16.10.1
+access-list inside_in extended permit icmp any any
+access-list inside_in extended permit ip any any
+access-list dmz_in extended permit ip any any
+pager lines 23
+mtu inside-diagonal 1500
+mtu outside 1500
+mtu inside 1500
+failover
+failover lan unit secondary
+failover lan interface FOCONN GigabitEthernet0/1
+failover link FOCONN GigabitEthernet0/1
+failover interface ip FOCONN 13.13.13.1 255.255.255.248 standby 13.13.13.2
+no failover wait-disable
+icmp unreachable rate-limit 1 burst-size 1
+icmp permit any inside-diagonal
+icmp permit 12.12.12.0 255.255.255.248 outside
+icmp permit 10.10.0.0 255.255.0.0 outside
+icmp permit any inside
+icmp permit 12.12.12.0 255.255.255.248 inside
+no asdm history enable
+arp timeout 14400
+no arp permit-nonconnected
+arp rate-limit 8192
+router ospf 1
+ router-id 10.10.10.10
+ network 12.12.12.0 255.255.255.248 area 0
+ network 13.13.13.0 255.255.255.248 area 0
+ network 16.16.16.0 255.255.255.248 area 0
+ network 172.16.10.0 255.255.255.192 area 0
+<--- More --->Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+Secondary: Switching to Ok for reason Interface check.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+
+Warning: ASAv platform license state is Unlicensed.
+Install ASAv platform license for full functionality.
+ log-adj-changes
+ redistribute connected subnets
+ redistribute eigrp 100 subnets
+!
+router eigrp 100
+!
+timeout xlate 3:00:00
+timeout pat-xlate 0:00:30
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 sctp 0:02:00 icmp 0:00:02
+timeout sunrpc 0:10:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:05:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+timeout conn-holddown 0:00:15
+timeout igp stale-route 0:01:10
+user-identity default-domain LOCAL
+aaa authentication login-history
+no snmp-server location
+no snmp-server contact
+crypto ipsec security-association pmtu-aging infinite
+crypto ca trustpoint _SmartCallHome_ServerCA
+ no validation-usage
+ crl configure
+crypto ca trustpoint _SmartCallHome_ServerCA2
+ no validation-usage
+ crl configure
+crypto ca trustpool policy
+ auto-import
+
+crypto ikev2 limit queue sa_init 50
+telnet timeout 5
+no ssh stack ciscossh
+ssh stricthostkeycheck
+ssh timeout 5
+ssh version 2
+ssh key-exchange group dh-group14-sha256
+console timeout 0
+console serial
+management-access outside
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+dynamic-access-policy-record DfltAccessPolicy
+!
+class-map inspection_default
+ match default-inspection-traffic
+!
+!
+policy-map type inspect dns migrated_dns_map_1
+ parameters
+  message-length maximum client auto
+  message-length maximum 512
+  no tcp-inspection
+policy-map global_policy
+ class inspection_default
+  inspect dns migrated_dns_map_1
+  inspect ftp
+  inspect h323 h225
+  inspect h323 ras
+  inspect ip-options
+  inspect netbios
+  inspect rsh
+  inspect rtsp
+  inspect skinny
+  inspect esmtp
+  inspect sqlnet
+  inspect sunrpc
+  inspect tftp
+  inspect sip
+  inspect icmp
+policy-map type inspect dns migrated_dns_map_2
+ parameters
+  message-length maximum client auto
+  message-length maximum 512
+  no tcp-inspection
+!
+service-policy global_policy global
+prompt hostname context
+no call-home reporting anonymous
+call-home
+ profile License
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination transport-method http
+ profile CiscoTAC-1
+  no active
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination address email callhome@cisco.com
+  destination transport-method http
+  subscribe-to-alert-group diagnostic
+  subscribe-to-alert-group environment
+  subscribe-to-alert-group inventory periodic monthly
+  subscribe-to-alert-group configuration periodic monthly
+  subscribe-to-alert-group telemetry periodic daily
+Cryptochecksum:415c63e107934cc2f25f54cb9fa8a56c
+: end
+ASA1#
