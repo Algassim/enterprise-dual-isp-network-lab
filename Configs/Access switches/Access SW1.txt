@@ -1,0 +1,156 @@
+
+
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2018 by Cisco Systems, Inc.
+Compiled Tue 19-Jun-18 06:06 by mmen
+
+
+
+**************************************************************************
+Access-SW1>
+Access-SW1>
+Access-SW1>
+Access-SW1>en
+Access-SW1#sh run
+Access-SW1#sh running-config
+Building configuration...
+
+Current configuration : 3956 bytes
+!
+! Last configuration change at 14:42:29 UTC Wed Feb 18 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname Access-SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username admin privilege 15 password 7 00071A150754
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp snooping vlan 10,20,30,50,60
+no ip dhcp snooping information option
+no ip dhcp snooping verify mac-address
+ip dhcp snooping
+ip domain-name mylab.local
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ switchport access vlan 10
+ switchport mode access
+ negotiation auto
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/1
+ switchport access vlan 10
+ switchport mode access
+ negotiation auto
+ spanning-tree portfast edge
+ spanning-tree bpduguard enable
+!
+interface GigabitEthernet0/2
+ switchport trunk allowed vlan 10,20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ speed 1000
+ duplex full
+ no negotiation auto
+ ip dhcp snooping trust
+!
+interface GigabitEthernet0/3
+ switchport trunk allowed vlan 10,20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ speed 1000
+ duplex full
+ no negotiation auto
+ ip dhcp snooping trust
+!
+interface GigabitEthernet1/0
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ negotiation auto
+!
+interface Vlan10
+ no ip address
+!
+interface Vlan50
+ ip address 10.10.50.4 255.255.255.0
+!
+ip forward-protocol nd
+!
+ip http server
+!
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec 
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end
+
+Access-SW1#
