@@ -1,0 +1,199 @@
+
+Dist-SW1#sh run
+Building configuration...
+
+Current configuration : 5168 bytes
+!
+! Last configuration change at 15:03:17 UTC Wed Feb 18 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+service compress-config
+!
+hostname Dist-SW1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+username admin privilege 15 password 7 1511021F0725
+no aaa new-model
+!
+!
+!
+!
+!
+!
+ip dhcp relay information trust-all
+!
+!
+no ip dhcp snooping information option
+no ip domain-lookup
+ip domain-name mylab.local
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 10,20,30,50,60 priority 4096
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ no switchport
+ ip address 2.2.2.1 255.255.255.252
+!
+interface Port-channel2
+ no switchport
+ ip address 5.5.5.2 255.255.255.248
+!
+interface GigabitEthernet0/0
+ no switchport
+ no ip address
+ negotiation auto
+ channel-group 1 mode on
+!
+interface GigabitEthernet0/1
+ no switchport
+ no ip address
+ negotiation auto
+ channel-group 1 mode on
+!
+interface GigabitEthernet0/2
+ switchport trunk allowed vlan 10,20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ speed 1000
+ duplex full
+ no negotiation auto
+!
+interface GigabitEthernet0/3
+ switchport trunk allowed vlan 10,20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ speed 1000
+ duplex full
+ no negotiation auto
+!
+interface GigabitEthernet1/0
+ switchport trunk allowed vlan 10,20,30,50,60
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 999
+ switchport mode trunk
+ speed 1000
+ duplex full
+ no negotiation auto
+!
+interface GigabitEthernet1/1
+ no switchport
+ no ip address
+ negotiation auto
+ channel-group 2 mode on
+!
+interface GigabitEthernet1/2
+ no switchport
+ no ip address
+ negotiation auto
+ channel-group 2 mode on
+!
+interface GigabitEthernet1/3
+ no switchport
+ ip address 18.2.18.2 255.255.255.248
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ negotiation auto
+!
+interface GigabitEthernet2/1
+ negotiation auto
+!
+interface Vlan10
+ ip address 10.10.10.1 255.255.255.0
+ ip helper-address 25.25.25.2
+ standby 10 ip 10.10.10.2
+ standby 10 priority 110
+ standby 10 preempt
+!
+interface Vlan20
+ ip address 10.10.20.1 255.255.255.0
+ ip helper-address 25.25.25.2
+ standby 20 ip 10.10.20.2
+ standby 20 priority 110
+ standby 20 preempt
+!
+interface Vlan30
+ ip address 10.10.30.1 255.255.255.0
+ ip helper-address 25.25.25.2
+ standby 30 ip 10.10.30.2
+ standby 30 priority 110
+ standby 30 preempt
+!
+interface Vlan50
+ ip address 10.10.50.1 255.255.255.0
+!
+!
+router eigrp MY_DIST2_FABRIC
+ !
+ address-family ipv4 unicast autonomous-system 100
+  !
+  topology base
+  exit-af-topology
+  network 2.2.2.0 0.0.0.3
+  network 5.5.5.0 0.0.0.7
+  network 10.10.10.0 0.0.0.255
+  network 10.10.20.0 0.0.0.255
+  network 10.10.30.0 0.0.0.255
+  network 10.10.50.0 0.0.0.255
+  network 18.2.18.0 0.0.0.7
+  network 25.25.25.0 0.0.0.7
+  eigrp router-id 7.7.7.7
+ exit-address-family
+!
+!
+router eigrp MY_DIST1_FABRIC
+!
+ip forward-protocol nd
+!
+ip http server
+!
+ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
+!
+!
+!
+!
+!
+!
+control-plane
+!
+
+!
+line con 0
+line aux 0
+line vty 0 4
+ login local
+ transport input ssh
+!
+!
+end
+
+Dist-SW1#
